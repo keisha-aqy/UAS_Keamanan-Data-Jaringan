@@ -6,17 +6,19 @@ from crypto_engine import generate_keys, sign_data, verify_data
 app = Flask(__name__)
 app.secret_key = "kunci_rahasia_uas_keamanan_data_2024"
 
-# Konfigurasi Folder
+# Konfigurasi Folder - Alihkan SEMUA ke /tmp agar diizinkan oleh Vercel
 UPLOAD_FOLDER = '/tmp'
-KEYS_FOLDER = 'keys'
+KEYS_FOLDER = '/tmp'  # <-- Diubah dari 'keys' menjadi '/tmp'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 PRIVATE_KEY = os.path.join(KEYS_FOLDER, 'private.pem')
 PUBLIC_KEY = os.path.join(KEYS_FOLDER, 'public.pem')
 
 # Pastikan folder dan kunci tersedia saat server berjalan
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(KEYS_FOLDER, exist_ok=True)
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Generate keys langsung di dalam folder /tmp
 generate_keys(PRIVATE_KEY, PUBLIC_KEY)
 
 
