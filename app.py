@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = "kunci_rahasia_uas_keamanan_data_2024"
 
 # Konfigurasi Folder
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = '/tmp'
 KEYS_FOLDER = 'keys'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
